@@ -43,6 +43,9 @@
 #include "types.h"
 #include "uci.h"
 #include "windows.h"
+#include "ml_features.h"
+
+extern EvalTrace T, EmptyTrace;
 
 int LMRTable[64][64];      // Late Move Reductions
 volatile int ABORT_SIGNAL; // Global ABORT flag for threads
@@ -123,6 +126,10 @@ void* iterativeDeepening(void *vthread) {
 
         // Update time allocation based on score and pv changes
         updateTimeManagment(info, limits);
+
+        // PJ
+        evaluateBoard(&thread->board, &thread->pktable, thread->contempt);
+        printFeatures(thread->depth);
 
         // Don't want to exit while pondering
         if (IS_PONDERING) continue;

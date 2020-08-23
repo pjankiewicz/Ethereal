@@ -364,6 +364,8 @@ const int Tempo = 20;
 
 int evaluateBoard(Board *board, PKTable *pktable, int contempt) {
 
+    T = EmptyTrace;
+
     EvalInfo ei;
     int phase, factor, eval, pkeval;
 
